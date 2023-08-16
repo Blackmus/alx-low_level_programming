@@ -1,16 +1,41 @@
+#include "3-calc.h"
+#include <stdlib.h>
 #include <stdio.h>
-#include "function_pointers.h"
-#include "function_pointers.h"
 
 /**
- * main - check the code
- *
- * Return: Always 0.
+ * main - main function
+ * @argc: argument count
+ * @argv: string of arguments in array
+ * Return: 0
  */
-int main(void)
-{
-print_name("Bob", print_name_as_is);
-print_name("Bob Dylan", print_name_uppercase);
 
-return (0);
+int main(int argc, char *argv[])
+{
+	int a, b;
+	int (*o)(int, int);
+
+	if (argc != 4)
+	{
+		printf("Error\n");
+		exit(98);
+	}
+	if (argv[2][1] != '\0')
+	{
+		printf("Error\n");
+		exit(99);
+	}
+
+	o = get_op_func(argv[2]);
+	if (o == NULL)
+	{
+		printf("Error\n");
+		exit(99);
+	}
+
+	a = atoi(argv[1]);
+	b = atoi(argv[3]);
+
+	printf("%d\n", o(a, b));
+
+	return (0);
 }
